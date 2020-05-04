@@ -79,17 +79,6 @@ ods.add_element('Y', 2.6616e-04)
 sodium = openmc.Material(name='Na')
 sodium.add_element('Na', 2.1924e-02)
 
-# absorber materials from Table 10
-primary_control = openmc.Material()
-primary_control.add_element('C', 2.70e-02)
-primary_control.add_nuclide('B10', 2.32e-02)
-primary_control.add_nuclide('B11', 8.49e-02)
-
-secondary_control = openmc.Material()
-secondary_control.add_element('C', 2.70e-02)
-secondary_control.add_nuclide('B10', 9.81e-02)
-secondary_control.add_nuclide('B11', 9.91e-03)
-
 helium = openmc.Material()
 helium.add_element('He', 1.0e-6)
 
@@ -142,7 +131,7 @@ geom.export_to_xml()
 # SIMULATION SETTINGS
 
 settings = openmc.Settings()
-settings.particles = 1000
+settings.particles = 10000
 settings.inactive = 20
 settings.batches = 100
 settings.temperature = {
