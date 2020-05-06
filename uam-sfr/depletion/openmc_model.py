@@ -92,14 +92,10 @@ fuel_inner = openmc.ZCylinder(r=inner_hole_radius)
 fuel_outer = openmc.ZCylinder(r=fuel_radius)
 clad_inner = openmc.ZCylinder(r=clad_inner_radius)
 clad_outer = openmc.ZCylinder(r=clad_outer_radius)
-
-inner_hole = openmc.Cell(fill=helium, region=-fuel_inner)
-fuel = openmc.Cell(fill=upuo2, region=+fuel_inner & -fuel_outer)
-gap = openmc.Cell(fill=helium, region=+fuel_outer & -clad_inner)
-clad = openmc.Cell(fill=ods, region=+clad_inner & -clad_outer)
-outside_pin = openmc.Cell(fill=sodium, region=+clad_outer)
-
-pin_universe = openmc.Universe(cells=(inner_hole, fuel, gap, clad, outside_pin))
+pin_universe = openmc.model.pin(
+    [fuel_inner, fuel_outer, clad_inner, clad_outer],
+    [helium, upuo2, helium, ods, sodium]
+)
 
 na_cell = openmc.Cell(fill=sodium)
 na_universe = openmc.Universe(cells=(na_cell,))
