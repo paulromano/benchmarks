@@ -115,10 +115,15 @@ lattice.universes = [
 ]
 lattice.outer = na_universe
 
-kwargs = {'orientation': 'x', 'boundary_type': 'periodic'}
-outer_hex = openmc.model.hexagonal_prism(subassembly_pitch / sqrt(3.), **kwargs)
-duct_outer_hex = openmc.model.hexagonal_prism(subassembly_duct_outer / sqrt(3.), **kwargs)
-duct_inner_hex = openmc.model.hexagonal_prism(subassembly_duct_inner / sqrt(3.), **kwargs)
+outer_hex = openmc.model.hexagonal_prism(
+    subassembly_pitch / sqrt(3.),
+    orientation='x',
+    boundary_type='periodic'
+)
+duct_outer_hex = openmc.model.hexagonal_prism(
+    subassembly_duct_outer / sqrt(3.), orientation='x')
+duct_inner_hex = openmc.model.hexagonal_prism(
+    subassembly_duct_inner / sqrt(3.), orientation='x')
 
 lattice_cell = openmc.Cell(fill=lattice, region=duct_inner_hex)
 duct = openmc.Cell(fill=em10, region=~duct_inner_hex & duct_outer_hex)
